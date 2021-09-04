@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Movie Assignment.</title>
+    <link href="https://unpkg.com/tailwindcss@^2/dist/tailwind.min.css" rel="stylesheet">
+    <style>
+        *{
+            margin: 0;
+            padding: 0;
+            font-family: 'Times New Roman', Times, serif;
+        }
+        #displayMovie{
+            height: auto;
+            width: 80%;
+            margin: auto;
+        }
+        #InnerMainDiv{
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+        #InnerMainDiv> div:first-child{
+            margin: auto;
+            margin-bottom: 1%;
+        }
+        #InnerMainDiv> div:last-child{
+            justify-content: center;
+            display: flex;
+            margin-top: 1%;
+        }
+        label{
+            margin-left: 2%;
+            margin-right: 1%;
+            height: 5%;
+        }
+        p{
+            margin-left: 0%;
+            margin-right: 2%;
+            font-family: Arial, Helvetica, sans-serif;
+        }
+    </style>
+</head>
+<body>
+    <header class="text-gray-600 body-font">
+        <div class="container mx-auto flex flex-wrap p-5 flex-col md:flex-row items-center">
+          <a class="flex title-font font-medium items-center text-gray-900 mb-4 md:mb-0">
+            <img src="https://www.livingwaters.com/wp-content/uploads/2017/12/outreach-Movies-logo.jpg" class="w-20 h-20 text-white p-1 bg-red-500 rounded-full">
+            <span class="ml-3 text-xl">Search Movies Online</span>
+          </a>
+          <nav class="md:ml-auto flex flex-wrap items-center text-base justify-center">
+            <input class="transparent border-1px" type="text" id="movie" placeholder="Enter Movie Name"/>
+          </nav>
+          <button id="btn" onclick="getMovieName()" class="inline-flex items-center bg-gray-100 border-0 py-1 px-3 focus:outline-none hover:bg-gray-200 rounded text-base mt-4 md:mt-0">Submit
+            <svg fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="w-4 h-4 ml-1" viewBox="0 0 24 24">
+              <path d="M5 12h14M12 5l7 7-7 7"></path>
+            </svg>
+          </button>
+        </div>
+      </header>
+    <div id="displayMovie">
+
+    </div>
+</body>
+</html>
+<script>
+        let count =0; 
+        async function getMovieName(){
+            try{
+                let movieN = document.getElementById("movie").value;
+                let res = await fetch(`https://www.omdbapi.com/?apikey=bdfed18f&t=${movieN}`);
+                let movie = await res.json();
+                console.log('movie:', movie);
+                DisplayMovie(movie);
+            }catch(err){
+                console.log('error:', err);
+            }
+        }
+            function DisplayMovie(movie){
+                if(count>0) {remove_predata(); console.log("hello");}
+                let displaydiv = document.getElementById("displayMovie");
+                let innerdiv = document.createElement("div");
+                innerdiv.setAttribute("id", "InnerMainDiv")
+                let imagediv = document.createElement("div");
+                let image = document.createElement("img");
+                image.src = movie.Poster;
+                imagediv.appendChild(image);
+                let contentdiv = document.createElement("div");
+                let labelName = document.createElement("label");
+                labelName.innerText = "TITLE: ";
+                let nameOfMovie = document.createElement("p");
+                nameOfMovie.innerText = movie.Title;
+                let labelimdb = document.createElement("label");
+                labelimdb.innerText = "IMDB RATING: ";
+                let imdbRating = document.createElement("p");
+                imdbRating.innerText = movie.imdbRating;
+                let labelgenre = document.createElement("label");
+                labelgenre.innerText = "GENRE: ";
+                let genre = document.createElement("p");
+                genre.innerText = movie.Genre;
+                let labelrating = document.createElement("label");
+                labelrating.innerText = "RATING: ";
+                let rating = document.createElement("p");
+                rating.innerText = movie.Rated;
+                contentdiv.append(labelName,nameOfMovie, labelimdb, imdbRating,labelgenre, genre,labelrating, rating);
+                innerdiv.append(imagediv, contentdiv);
+                displaydiv.append(innerdiv);
+                count= count+1;
+            }
+            function remove_predata(){
+                let div = document.getElementById("InnerMainDiv");
+                div.remove();
+            }
+</script>

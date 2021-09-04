@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        *{
+            margin: 0;
+            padding: 0;
+        }
+        nav{
+            color: whitesmoke;
+            width: 100%;
+            background-color: #fa311a;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            align-items: center;
+        }
+        nav img{
+            width: 10%;
+            border: 5px solid salmon;
+            border-radius: 50%;
+            /* justify-self: flex-start; */
+        }
+        nav pre{
+            justify-self: center;
+            font-style: italic;
+            font-family: fantasy;
+            font-weight: bolder;
+            font-size: xxx-large;
+        }
+        nav div{
+            width: 25%; 
+            display: flex;
+            justify-content: space-evenly;
+        }
+        #movie{
+            border: 5px solid salmon;
+            height: 40px;
+            width: 40%;
+            border-radius: 10px;
+            text-align: center;
+        }
+        #btn{
+            width: 40%;
+            border: 5px solid salmon;
+            background-color: rgb(243, 79, 61);
+            color: whitesmoke;
+            border-radius: 10px;
+        }
+        #bodydiv{
+            border: 10px solid salmon;
+            display:flex;
+            height: 70vh;
+            width:70%;
+            justify-content: space-around;
+            align-items: center;
+            margin: 3% auto;
+        }
+        #imagediv{
+            height: 95%;
+            width: 40%;
+            /* border: 10px solid tomato; */
+        }
+        #imagediv img{
+            height: 100%;
+            width: 100%;
+        }
+        #contentdiv{
+            height: 95%;
+            width: 45%;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-around;
+            /* border: 10px solid tomato; */
+        }
+        #bodydiv>h2{
+            align-self: center;
+            font-family: cursive;
+        }
+        h2,p{
+            color: brown;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <nav>
+            <img src="https://www.livingwaters.com/wp-content/uploads/2017/12/outreach-Movies-logo.jpg"/>
+            <pre>                    Search Movies Online </pre>
+            <div>
+                <input type="text" id="movie" placeholder="Enter Movie Name">
+                <button id="btn" onclick="getMovieDetail()">Submit</button>
+            </div>
+        </nav>
+    </header>
+    <div id="bodydiv">
+        <h2>Welcome, to the Search Movie Online!!</h2>
+    </div>
+</body>
+</html>
+<script>
+    async function getMovieDetail(){
+            try{
+                let movieN = document.getElementById("movie").value;
+                let res = await fetch(`https://www.omdbapi.com/?apikey=bdfed18f&t=${movieN}`);
+                let movie = await res.json();
+                console.log('movie:', movie);
+                if(movie.Response === "False"){
+                    createError();
+                }
+                else{
+                    DisplayMovie(movie);
+                }
+                document.getElementById("movie").value =" ";
+            }catch(err){
+                console.log('error:', err);
+            }
+        }
+        function DisplayMovie(movie){
+            remove_preData();
+            let bodydiv = document.createElement("div");
+            bodydiv.setAttribute("id", "bodydiv");
+            let imagediv = document.createElement("div");
+            imagediv.setAttribute("id", "imagediv");
+            let image = document.createElement("img");
+            image.src = movie.Poster;
+            imagediv.appendChild(image);
+            let contentdiv = document.createElement('div');
+            contentdiv.setAttribute("id","contentdiv");
+            let movie_name = document.createElement("h2");
+            movie_name.innerText = `Title: ${movie.Title}`;
+            let p_released = document.createElement("p");
+            p_released.innerText = `Released : ${movie.Released}`;
+            let p_rating = document.createElement("p");
+            p_rating.innerText = `IMDB RATING : ${movie.imdbRating}`;
+            let actors = document.createElement("p");
+            actors.innerText = `Actors: ${movie.Actors}`;
+            let plot = document.createElement("p");
+            plot.innerText = `Plot: ${movie.Plot}`;
+            contentdiv.append(movie_name,p_released,p_rating, actors, plot);
+            bodydiv.append(imagediv, contentdiv);
+            document.body.append(bodydiv);
+        }
+
+
+        function createError(){
+            remove_preData();
+            let bodydiv = document.createElement("div");
+            bodydiv.setAttribute("id", "bodydiv");
+            let imagediv = document.createElement("div");
+            imagediv.setAttribute("id", "imagediv");
+            let image = document.createElement("img");
+            image.src = "ERROR.jpg";
+            imagediv.appendChild(image);
+            bodydiv.appendChild(imagediv);
+            document.body.append(bodydiv);
+        }
+        function remove_preData(){
+            let maindiv = document.getElementById("bodydiv");
+            maindiv.remove();
+        }
+</script>
