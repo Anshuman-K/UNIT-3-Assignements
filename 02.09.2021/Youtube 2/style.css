@@ -1,0 +1,68 @@
+*{
+    margin: 0;
+    padding: 0;
+    background-color: #f2f2f2;
+}
+header{
+    position:fixed;
+    background-color: white;
+    height: 65px;
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    /* border: 1px solid black; */
+    align-items: center;
+}
+#content-box{
+    /* border: 1px solid red; */
+    max-width: 100%;
+    padding-top: 100px ;
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    grid-template-rows: repeat(5,1fr);
+}
+#content-box>div{
+    height: 90%;
+    width: 80%;
+    margin:2%;
+    /* border: 1px solid red; */
+}
+iframe{
+    height: 98%;
+    width: 99%;
+}
+.logo{
+    height: 23px;
+    width: 100px;
+    background-color: white;
+    margin-left: 55%;
+    /* border: 1px solid black; */
+}
+.logo2{
+    height: 80%;
+    width: auto;
+    /* border: 1px solid black; */
+}
+
+#searchbox{
+    border: 1px solid rgb(206, 194, 194);
+    background-color: transparent;
+    width: 80%;
+    height: 35px;
+}
+#submit-btn{
+    width: 20%;
+    background-color: transparent;
+    border: 1px solid rgb(206, 194, 194);
+}
+#navbar{
+    margin-left: 11%;
+    display: flex;
+    background-color: white;
+    /* border: 1px solid rgb(206, 194, 194); */
+    width: 45%;
+}
+#anchorYoutube{
+    background-color: white;
+    /* border: 1px solid black; */
+}
