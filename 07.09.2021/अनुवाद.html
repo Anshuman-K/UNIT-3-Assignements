@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>अनुवाद</title>
+    <style>
+        *{
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        #main{
+            width: 100%;
+            height: 100vh;
+            padding: 2%;
+            text-align: center;
+        }
+        h1{
+            margin: 2% 0;
+        }
+        textarea{
+            margin-right: 3%;
+            font-size: 20px;
+            padding: 1.5%;
+        }
+        select{
+            margin-bottom: 3%;
+        }
+        button{
+            width: 100px;
+            height: 32px;
+            padding: 3px 2px;
+            margin: 3%;
+        }
+    </style>
+</head>
+<body>
+    <div id="main">
+        <h1>अनुवाद</h1>
+        <select name="" id="bhasha">
+        </select>
+        <div>
+            <textarea name="" id="phla" cols="35" rows="10"></textarea>
+            <textarea name="" id="dusra" cols="35" rows="10"></textarea>
+        </div>
+        <button onclick="badlo()">Translate</button>
+    </div>
+</body>
+</html>
+
+<script>
+    async function badlo(){
+        let phla = document.getElementById('phla').value
+    // console.log('phla:', phla)
+    
+    let dusra = document.getElementById('dusra')
+    // console.log('dusra:', dusra)
+    let kibhasha = document.getElementById("bhasha").value;
+    // console.log('kibhasha:', kibhasha)
+
+   
+    const data = await fetch("https://libretranslate.de/translate", {
+    method: "POST",
+    body: JSON.stringify({
+        q: `${phla}`,
+        source: 'en',
+        target: `${kibhasha}`,
+    }),
+    headers: { "Content-Type": "application/json" },
+    });
+
+    let res = await data.json();
+    // console.log(res.translatedText);
+    dusra.textContent = res.translatedText;
+    }
+
+
+    
+
+    async function bhashaChahiye() {
+
+    let bhasha = document.getElementById("bhasha");
+    let data = await fetch("https://libretranslate.de/languages");
+    let res = await data.json();
+    res.forEach(({ code, name }) => {
+      let option = document.createElement("option");
+      option.setAttribute("value", code);
+      if (code === "hi") {
+        option.setAttribute("selected", "");
+      }
+      option.innerText = name;
+      bhasha.append(option);
+    });
+  }
+
+  bhashaChahiye();
+
+    
+</script>
