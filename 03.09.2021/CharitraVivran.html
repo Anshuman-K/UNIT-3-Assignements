@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Charitra Vivran</title>
+</head>
+<style>
+    *{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    color: #e2c815;
+}
+body{
+  background-color: black;
+}
+#main{
+  width: 100%;
+  height: 100vh;
+  display: grid;
+  place-items: center;
+}
+#innerdiv{
+  width: 60%;
+  height: 40%;
+  text-align: center;
+}
+#andarKandar{
+    margin: auto;
+    display: flex;
+    justify-content: space-between;
+    height: 70%;
+    width: 80%;
+    align-items: center;
+}
+#andarKandar>div{
+    padding: 3% 0%;
+    height: 70%;
+    width: 30%;
+    border: 2px solid #e2c815;
+    border-radius: 30px;
+    text-align: center;
+}
+button{
+    background-color: transparent;
+    border: 2px solid #e2c815;
+    height: 10%;
+    width: 10%;
+    border-radius: 15px;
+}
+</style>
+<body>
+    <div id="main">
+        <div id="innerdiv">
+            <h1 id="CharitraKaNaam"></h1>
+            <div id="andarKandar">
+                <div class="vivran">
+                    <p>Personal Info</p>
+                    <p>Birth Year: <span id="janamdin"></span></p>
+                    <p>Gender:<span id="ling"></span></p>
+                    <p>Height: <span id="kad"></span></p>
+                </div>
+                <div class="vivran">
+                    <p>Anatomy</p>
+                    <p>Eye Color: <span id="ankh"></span></p>
+                    <p>Mass:<span id="Vajan"></span></p>
+                    <p>Hair Color: <span id="Baal"></span></p>
+                </div>
+            </div>
+            <button id="Wapas">Go Back</button>
+        </div>
+    </div>
+</body>
+<script>
+    let dhaatu = JSON.parse(localStorage.getItem("kuchbhi"));
+
+    let naam = document.getElementById("CharitraKaNaam");
+    naam.innerText = dhaatu.name;
+    let janam = document.getElementById("janamdin");
+    janam.innerText = ` ${dhaatu.birth_year}`;
+    let ling = document.getElementById("ling");
+    ling.innerText = ` ${dhaatu.gender}`;
+    let kadkaathi = document.getElementById("kad");
+    kadkaathi.innerText = ` ${dhaatu.height}`;
+    let Ankho = document.getElementById("ankh");
+    Ankho.innerText = ` ${dhaatu.eye_color}`;
+    let Vajan = document.getElementById("Vajan");
+    Vajan.innerText = ` ${dhaatu.mass}`;
+    let Bal = document.getElementById("Baal");
+    Bal.innerText = ` ${dhaatu.hair_color}`;
+
+    let btn = document.getElementById("Wapas");
+    btn.addEventListener("click", () => {
+    localStorage.removeItem("kuchbhi");
+    location.href = "./StarWars.html";
+});
+
+</script>
+</html>
