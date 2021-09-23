@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="navbar.css">
+    <style>
+      #searchbox{
+        margin: auto;
+        height: 10vh;
+        width: 50%;
+        text-align: center;
+        padding-top: 1%;
+        /* border: 1px solid black; */
+      }
+      input{
+        width: 50%;
+        height: 49%;
+        text-align: center;
+        border: 1px solid salmon;
+      }
+      #displayMenu{
+        margin: auto;
+        width: 100%;
+        height: 100vh;
+        text-align: center;
+        display: flex;
+        justify-content: space-around;
+        flex-wrap: wrap;
+      }
+      #searchbox button{
+        width: 30%;
+        height: 50%;
+        border: 1px solid salmon;
+        background-color: rgb(250, 184, 176);
+        cursor: pointer;
+        outline: none;
+        border-radius: 50px;
+      }
+      #searchbox .btn:hover{
+        background-color: salmon;
+      }
+      .Card{
+        width: 30%;
+        height: 50%;
+      }
+      .Card> div:nth-child(1){
+        width: 100%;
+        height: 80%;
+      }
+      .Card> div:nth-child(2){
+        width: 100%;
+        height: 18%;
+      }
+      img{
+        height: 100%;
+        width: 100%;
+        border-radius: 2%;
+      }
+      #category{
+        color: red;
+      }
+      #area{
+        color: brown;
+      }
+    </style>
+</head>
+<body>
+    <div id="searchbox">
+      <input  type="text" placeholder="Search for Recipes" id="search"/>
+      <button class="btn" onclick="GetResults()">Search</button>
+    </div>
+    <div id="displayMenu">
+
+    </div>
+</body>
+</html>
+<script type="module">
+    import navbar from './Components/navbar.js'
+    let div = document.createElement("div");
+  div.innerHTML = navbar();
+  document.body.prepend(div);
+</script>
+
+<script>
+
+ let displayDiv = document.getElementById("displayMenu");
+async function GetResults(){
+  let value = document.getElementById("search").value;
+  let data = await fetch(`https://www.themealdb.com/api/json/v1/1/search.php?s=${value}`);
+  // console.log('data:', data)
+  let res = await data.json();
+  // console.log('res:', res)
+  // console.log('resmeals:', res.meals)
+  diplayResults( res.meals);
+}
+function diplayResults(results){
+  //console.log('results:', results)
+  preRemove();
+  if(results == null){
+    let div = document.createElement("div");
+    let p = document.createElement("p");
+    p.innerText= "No results Found, Try again....";
+    div.appendChild(p);
+    displayDiv.appendChild(div);
+  }else{
+    results.forEach(({strMealThumb, strMeal, strCategory, strArea}) => {
+      let CardDiv = document.createElement("div");
+      CardDiv.setAttribute("class","Card");
+      
+      let innerdiv1 = document.createElement("div");
+      let img = document.createElement("img");
+      img.src = strMealThumb;
+
+      let innerdiv2= document.createElement("div");
+      let name = document.createElement("h3");
+      name.innerText = strMeal;
+      let category = document.createElement("p");
+      category.setAttribute("id", "category");
+      category.innerText = strCategory;
+      let area = document.createElement("p");
+      area.setAttribute("id", "area");
+      area.innerText = strArea;
+
+      CardDiv.append(innerdiv1, innerdiv2);
+      innerdiv1.appendChild(img);
+      innerdiv2.append(name,category, area);
+      displayDiv.append(CardDiv);
+    });
+
+  }
+}
+
+function preRemove(){
+
+  let divs = displayDiv.querySelectorAll("div");
+  divs.forEach(element => {
+    element.remove();
+  });
+}
+
+</script>
