@@ -1,0 +1,61 @@
+{
+  "users": [
+    {
+      "id": "1",
+      "FirstName": "Anshuman",
+      "LastName": "Kashyap",
+      "Email": "Anshuman@gmail.com",
+      "age": "23",
+      "companyID": "1"
+    },
+    {
+      "id": "2",
+      "FirstName": "Aditya",
+      "LastName": "Prakash",
+      "Email": "aditya@gmail.com",
+      "age": "25",
+      "companyID": "2"
+    },
+    {
+      "id": "3",
+      "FirstName": "Shubham",
+      "LastName": "Shrivastav",
+      "Email": "ss@gmail.com",
+      "age": "25",
+      "companyID": "2"
+    },
+    {
+      "id": "4",
+      "FirstName": "Shubham",
+      "LastName": "Thakur",
+      "Email": "st@gmail.com",
+      "age": "21",
+      "companyID": "3"
+    },
+    {
+      "firstName": "Akash",
+      "lastName": "Gupta",
+      "Email": "Akash@gmail.com",
+      "age": "32",
+      "companyId": "2",
+      "id": "4kCXU8_"
+    }
+  ],
+  "companies": [
+    {
+      "id": "1",
+      "name": "Apple",
+      "description": "Apple Inc. designs, manufactures and markets smartphones, personal computers, tablets, wearables and accessories, and sells a variety of related services. The Company's products include iPhone, Mac, iPad, and Wearables, Home and Accessories. iPhone is the Company's line of smartphones based on its iOS operating system."
+    },
+    {
+      "id": "2",
+      "name": "Google",
+      "description": "Google is an American company that is most commonly known as a search engine. Although the company made it's name as a search engine, and the vast majority of its income comes from advertising because of this, it has branched out into a number of areas such as cloud computing, software and hardware."
+    },
+    {
+      "id": "3",
+      "name": "Microsoft",
+      "description": "Microsoft Corporation is a technology company. The Company develops and supports a range of software products, services, devices, and solutions. The Company's segments include Productivity and Business Processes, Intelligent Cloud, and More Personal Computing."
+    }
+  ]
+}
